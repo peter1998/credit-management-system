@@ -1,1 +1,18 @@
-<p>loan-form works!</p>
+<form (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Borrower Name</mat-label>
+    <input matInput [(ngModel)]="borrowerName" name="borrowerName" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input matInput [(ngModel)]="amount" name="amount" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Term</mat-label>
+    <input matInput [(ngModel)]="term" name="term" required />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Create Loan</button>
+</form>
