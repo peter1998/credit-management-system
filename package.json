@@ -1,0 +1,24 @@
+{
+  "name": "credit-management-system",
+  "version": "1.0.0",
+  "description": "A web-based credit management system built with Angular for the frontend, Node.js/Express.js for the backend, and SQL for the database. The system allows for the creation of new credits, viewing all credits, and making payments towards credits.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peter1998/credit-management-system.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peter1998/credit-management-system/issues"
+  },
+  "homepage": "https://github.com/peter1998/credit-management-system#readme",
+  "dependencies": {
+    "mysql2": "^3.3.3",
+    "sequelize": "^6.31.1"
+  }
+}
