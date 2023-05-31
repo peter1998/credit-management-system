@@ -1,6 +1,6 @@
 export interface Loan {
-  id: number;
+  id?: number; // make id optional
   borrowerName: string;
   amount: number;
-  term: number;
+  term: string;
 }

@@ -1,5 +1,16 @@
-<ul>
-  <li *ngFor="let loan of loans">
-    {{ loan.borrowerName }}: {{ loan.amount }} for {{ loan.term }} months
-  </li>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Borrower Name</th>
+      <th>Amount</th>
+      <th>Term</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let loan of loans">
+      <td>{{ loan.borrowerName }}</td>
+      <td>{{ loan.amount }}</td>
+      <td>{{ loan.term }}</td>
+    </tr>
+  </tbody>
+</table>

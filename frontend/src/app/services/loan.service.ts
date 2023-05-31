@@ -28,4 +28,10 @@ export class LoanService {
   createLoan(loan: Loan): Observable<Loan> {
     return this.http.post<Loan>(this.apiUrl, loan);
   }
+
+  getLoansForBorrower(borrowerName: string): Observable<Loan[]> {
+    return this.http.get<Loan[]>(
+      `http://localhost:3000/loans?borrowerName=${borrowerName}`
+    );
+  }
 }

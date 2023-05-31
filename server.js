@@ -20,11 +20,9 @@ app.post("/loans", async (req, res) => {
       0
     );
     if (totalExistingLoanAmount + amount > 80000) {
-      return res
-        .status(400)
-        .json({
-          error: "Borrower cannot have loans totaling more than 80,000 BGN",
-        });
+      return res.status(400).json({
+        error: "Borrower cannot have loans totaling more than 80,000 BGN",
+      });
     }
 
     const loan = await Loan.create(req.body);
@@ -37,7 +35,13 @@ app.post("/loans", async (req, res) => {
 // Get all loans
 app.get("/loans", async (req, res) => {
   try {
-    const loans = await Loan.findAll();
+    const borrowerName = req.query.borrowerName;
+    let loans;
+    if (borrowerName) {
+      loans = await Loan.findAll({ where: { borrowerName } });
+    } else {
+      loans = await Loan.findAll();
+    }
     res.json(loans);
   } catch (err) {
     res.status(500).json({ error: err.message });

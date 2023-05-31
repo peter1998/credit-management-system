@@ -1,11 +1,13 @@
 <form (ngSubmit)="makePayment()">
-  <label>
-    Loan ID:
-    <input [(ngModel)]="loanId" name="loanId" />
-  </label>
-  <label>
-    Amount:
-    <input [(ngModel)]="amount" name="amount" />
-  </label>
-  <button type="submit">Make Payment</button>
+  <mat-form-field>
+    <mat-label>Loan ID</mat-label>
+    <input matInput [(ngModel)]="loanId" name="loanId" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input matInput [(ngModel)]="amount" name="amount" required />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Make Payment</button>
 </form>
