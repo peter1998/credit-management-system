@@ -1,16 +1,28 @@
-<table>
-  <thead>
-    <tr>
-      <th>Borrower Name</th>
-      <th>Amount</th>
-      <th>Term</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let loan of loans">
-      <td>{{ loan.borrowerName }}</td>
-      <td>{{ loan.amount }}</td>
-      <td>{{ loan.term }}</td>
-    </tr>
-  </tbody>
+<table mat-table [dataSource]="loans" class="mat-elevation-z8">
+  <!-- Borrower Name Column -->
+  <ng-container matColumnDef="borrowerName">
+    <th mat-header-cell *matHeaderCellDef>Borrower Name</th>
+    <td mat-cell *matCellDef="let loan">{{ loan.borrowerName }}</td>
+  </ng-container>
+
+  <!-- Amount Column -->
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>Amount</th>
+    <td mat-cell *matCellDef="let loan">{{ loan.amount }}</td>
+  </ng-container>
+
+  <!-- Term Column -->
+  <ng-container matColumnDef="term">
+    <th mat-header-cell *matHeaderCellDef>Term</th>
+    <td mat-cell *matCellDef="let loan">{{ loan.term }}</td>
+  </ng-container>
+
+  <!-- Monthly Payment Column -->
+  <ng-container matColumnDef="monthlyPayment">
+    <th mat-header-cell *matHeaderCellDef>Monthly Payment</th>
+    <td mat-cell *matCellDef="let loan">{{ loan.monthlyPayment }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

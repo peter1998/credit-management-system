@@ -1,7 +1,12 @@
+<!-- payment-form.component.html -->
 <form (ngSubmit)="makePayment()">
   <mat-form-field>
-    <mat-label>Loan ID</mat-label>
-    <input matInput [(ngModel)]="loanId" name="loanId" required />
+    <mat-label>Loan</mat-label>
+    <mat-select [(value)]="selectedLoanId" required>
+      <mat-option *ngFor="let loan of loans" [value]="loan.id">
+        {{ loan.borrowerName }} - {{ loan.amount }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field>

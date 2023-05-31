@@ -3,6 +3,7 @@ import { firstValueFrom } from 'rxjs';
 
 import { PaymentService } from '../services/payment.service';
 import { LoanService } from '../services/loan.service';
+import { Loan } from '../models/loan.model';
 
 @Component({
   selector: 'app-payment-form',
@@ -10,7 +11,8 @@ import { LoanService } from '../services/loan.service';
   styleUrls: ['./payment-form.component.sass'],
 })
 export class PaymentFormComponent {
-  loanId: number = 0; // initial value
+  loans: Loan[] = [];
+  selectedLoanId: number = 0; // initial value
   amount: number = 0; // initial value
 
   constructor(
@@ -18,9 +20,15 @@ export class PaymentFormComponent {
     private loanService: LoanService
   ) {}
 
+  ngOnInit(): void {
+    this.loanService.getLoans().subscribe((loans) => {
+      this.loans = loans;
+    });
+  }
+
   async makePayment(): Promise<void> {
-    // Check that loanId and amount are valid
-    if (this.loanId <= 0) {
+    // Check that selectedLoanId and amount are valid
+    if (this.selectedLoanId <= 0) {
       console.error('Invalid loan ID');
       return;
     }
@@ -30,7 +38,9 @@ export class PaymentFormComponent {
     }
 
     // Check that loanId exists in the database
-    const loan = await firstValueFrom(this.loanService.getLoan(this.loanId));
+    const loan = await firstValueFrom(
+      this.loanService.getLoan(this.selectedLoanId)
+    );
     if (!loan) {
       console.error('Loan ID does not exist');
       return;
@@ -38,7 +48,7 @@ export class PaymentFormComponent {
 
     // Fetch payments for the loan
     const payments = await firstValueFrom(
-      this.loanService.getPayments(this.loanId)
+      this.loanService.getPayments(this.selectedLoanId)
     );
 
     // Calculate the total payment amount
@@ -59,8 +69,10 @@ export class PaymentFormComponent {
       return;
     }
 
-    this.paymentService.makePayment(this.loanId, this.amount).subscribe(() => {
-      console.log('Payment made!');
-    });
+    this.paymentService
+      .makePayment(this.selectedLoanId, this.amount)
+      .subscribe(() => {
+        console.log('Payment made!');
+      });
   }
 }
