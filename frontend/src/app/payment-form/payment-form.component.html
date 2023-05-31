@@ -1,1 +1,11 @@
-<p>payment-form works!</p>
+<form (ngSubmit)="makePayment()">
+  <label>
+    Loan ID:
+    <input [(ngModel)]="loanId" name="loanId" />
+  </label>
+  <label>
+    Amount:
+    <input [(ngModel)]="amount" name="amount" />
+  </label>
+  <button type="submit">Make Payment</button>
+</form>

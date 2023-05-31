@@ -1,1 +1,5 @@
-<p>loan-list works!</p>
+<ul>
+  <li *ngFor="let loan of loans">
+    {{ loan.borrowerName }}: {{ loan.amount }} for {{ loan.term }} months
+  </li>
+</ul>
