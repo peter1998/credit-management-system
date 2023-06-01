@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 import { LoanService } from '../services/loan.service';
 import { Loan } from '../models/loan.model';
@@ -14,9 +15,9 @@ export class LoanFormComponent {
 
   constructor(private loanService: LoanService) {
     this.form = new FormGroup({
-      borrowerName: new FormControl(''),
-      amount: new FormControl(0),
-      term: new FormControl(0),
+      borrowerName: new FormControl('', Validators.required),
+      amount: new FormControl(0, [Validators.required, Validators.min(0)]),
+      term: new FormControl(0, [Validators.required, Validators.min(0)]),
     });
   }
 

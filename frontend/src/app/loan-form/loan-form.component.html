@@ -2,16 +2,25 @@
   <mat-form-field>
     <mat-label>Borrower Name</mat-label>
     <input matInput formControlName="borrowerName" required />
+    <mat-error *ngIf="form.get('borrowerName')?.invalid">
+      Please enter a borrower name.
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Amount</mat-label>
     <input matInput type="number" formControlName="amount" required />
+    <mat-error *ngIf="form.get('amount')?.invalid">
+      Please enter a valid amount.
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Term</mat-label>
     <input matInput type="number" formControlName="term" required />
+    <mat-error *ngIf="form.get('term')?.invalid">
+      Please enter a valid term.
+    </mat-error>
   </mat-form-field>
 
   <button mat-raised-button color="primary" type="submit">Create Loan</button>
