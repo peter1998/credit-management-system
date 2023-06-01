@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("./database"); // make sure the path to your database file is correct
+const sequelize = require("./database");
 
 const Payment = sequelize.define("Payment", {
   id: {
@@ -12,10 +12,10 @@ const Payment = sequelize.define("Payment", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "loans", // 'loans' refers to the table name
+      model: "loans",
       key: "id",
     },
-    onDelete: "CASCADE", // delete payment when associated loan is deleted
+    onDelete: "CASCADE",
   },
   amount: {
     type: DataTypes.FLOAT,

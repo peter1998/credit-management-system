@@ -1,4 +1,3 @@
-// loan-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { LoanService } from '../services/loan.service';
 import { Loan } from '../models/loan.model';

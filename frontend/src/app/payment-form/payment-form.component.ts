@@ -12,8 +12,8 @@ import { Loan } from '../models/loan.model';
 })
 export class PaymentFormComponent {
   loans: Loan[] = [];
-  selectedLoanId: number = 0; // initial value
-  amount: number = 0; // initial value
+  selectedLoanId: number = 0;
+  amount: number = 0;
 
   constructor(
     private paymentService: PaymentService,
@@ -27,7 +27,6 @@ export class PaymentFormComponent {
   }
 
   async makePayment(): Promise<void> {
-    // Check that selectedLoanId and amount are valid
     if (this.selectedLoanId <= 0) {
       console.error('Invalid loan ID');
       return;
@@ -37,7 +36,6 @@ export class PaymentFormComponent {
       return;
     }
 
-    // Check that loanId exists in the database
     const loan = await firstValueFrom(
       this.loanService.getLoan(this.selectedLoanId)
     );
@@ -46,12 +44,10 @@ export class PaymentFormComponent {
       return;
     }
 
-    // Fetch payments for the loan
     const payments = await firstValueFrom(
       this.loanService.getPayments(this.selectedLoanId)
     );
 
-    // Calculate the total payment amount
     let totalPaymentAmount = 0;
     if (payments) {
       totalPaymentAmount = payments.reduce(
@@ -60,10 +56,8 @@ export class PaymentFormComponent {
       );
     }
 
-    // Calculate the remaining balance of the loan
     const remainingBalance = loan.amount - totalPaymentAmount;
 
-    // Check that amount does not exceed the remaining balance of the loan
     if (this.amount > remainingBalance) {
       console.error('Payment amount exceeds remaining balance of the loan');
       return;

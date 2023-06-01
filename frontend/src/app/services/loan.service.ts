@@ -8,7 +8,7 @@ import { Payment } from '../models/payment.mode';
   providedIn: 'root',
 })
 export class LoanService {
-  private apiUrl = 'http://localhost:3000/loans'; // replace with your API URL
+  private apiUrl = 'http://localhost:3000/loans';
 
   constructor(private http: HttpClient) {}
 
@@ -20,7 +20,6 @@ export class LoanService {
     return this.http.get<Loan>(`${this.apiUrl}/${id}`);
   }
 
-  // In LoanService
   getPayments(loanId: number): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${this.apiUrl}/${loanId}/payments`);
   }

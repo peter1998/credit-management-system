@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("./database"); // make sure the path to your database file is correct
+const sequelize = require("./database");
 
 const Loan = sequelize.define("Loan", {
   id: {
