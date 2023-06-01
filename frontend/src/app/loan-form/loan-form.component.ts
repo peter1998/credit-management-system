@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+
 import { LoanService } from '../services/loan.service';
 import { Loan } from '../models/loan.model';
 
@@ -8,23 +10,22 @@ import { Loan } from '../models/loan.model';
   styleUrls: ['./loan-form.component.sass'],
 })
 export class LoanFormComponent {
-  borrowerName = '';
-  amount: number = 0; // change type to number
-  term = 0;
+  form: FormGroup;
 
-  constructor(private loanService: LoanService) {}
+  constructor(private loanService: LoanService) {
+    this.form = new FormGroup({
+      borrowerName: new FormControl(''),
+      amount: new FormControl(0),
+      term: new FormControl(0),
+    });
+  }
 
   onSubmit() {
-    const loan: Loan = {
-      // use Loan type
-      borrowerName: this.borrowerName,
-      amount: this.amount,
-      term: this.term,
-    };
+    const loan: Loan = this.form.value;
 
     // Fetch all loans for the borrower
     this.loanService
-      .getLoansForBorrower(this.borrowerName)
+      .getLoansForBorrower(loan.borrowerName)
       .subscribe((loans) => {
         // Calculate the total loan amount
         const totalLoanAmount = loans.reduce(
@@ -33,7 +34,7 @@ export class LoanFormComponent {
         );
 
         // Check if the total loan amount plus the new loan amount exceeds 80,000 BGN
-        if (totalLoanAmount + this.amount > 80000) {
+        if (totalLoanAmount + loan.amount > 80000) {
           console.error(
             'Total loan amount for borrower cannot exceed 80,000 BGN'
           );
