@@ -10,7 +10,7 @@ import { Loan } from '../models/loan.model';
 export class LoanFormComponent {
   borrowerName = '';
   amount: number = 0; // change type to number
-  term = '';
+  term = 0;
 
   constructor(private loanService: LoanService) {}
 

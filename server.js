@@ -1,18 +1,23 @@
 const express = require("express");
+const cors = require("cors");
 const sequelize = require("./database");
 const Loan = require("./loan");
 const Payment = require("./payment");
 
 const app = express();
 
+// Enable CORS
+app.use(cors());
+
 // Middleware to parse JSON bodies
 app.use(express.json());
 
 // Create a new loan
 app.post("/loans", async (req, res) => {
+  console.log(req.body);
   try {
     const { borrowerName, amount } = req.body;
-
+    console.log("borrow Name", borrowerName);
     // Check that the borrower does not already have loans totaling more than 80,000 BGN
     const existingLoans = await Loan.findAll({ where: { borrowerName } });
     const totalExistingLoanAmount = existingLoans.reduce(
@@ -68,6 +73,32 @@ app.post("/payments", async (req, res) => {
     res.status(201).json(payment);
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+// Get a specific loan
+app.get("/loans/:id", async (req, res) => {
+  try {
+    const loan = await Loan.findByPk(req.params.id);
+    if (loan) {
+      res.json(loan);
+    } else {
+      res.status(404).json({ error: "Loan not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get payments for a specific loan
+app.get("/loans/:id/payments", async (req, res) => {
+  try {
+    const payments = await Payment.findAll({
+      where: { loanId: req.params.id },
+    });
+    res.json(payments);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
